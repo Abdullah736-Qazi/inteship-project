@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Stock Plot</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #663399, #c06699, #99c066);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fff; /* White text */
+        }
+
+        .plot-image {
+            max-width: 100%;
+            border: 1px solid #dee2e6; /* Light gray border */
+            border-radius: 5px;
+            background-color: #fff; /* White background */
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .go-back-link,
+        .logout-link {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #04863a; /* Dark green text */
+        }
+
+        .output-section {
+            display: none;
+        }
+
+        .output-link {
+            display: inline-block;
+            margin: 5px;
+            text-align: center;
+            color: #eef3f8; /* Light gray text */
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .output-link:hover {
+            color: #07a107; /* Dark green text on hover */
+        }
+
+        .btn-purple {
+            color: hsl(0, 0%, 100%); /* White text */
+            background-color: #9370db; /* Light purple background */
+            border-color: #9370db; /* Light purple border */
+        }
+
+        .btn-purple:hover {
+            background-color: #7a67d2; /* Slightly darker purple on hover */
+            border-color: #7a67d2; /* Slightly darker purple border on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Historical Stock Plot</h1>
+        <div class="plot-image">
+            <img src="{{ plot_url }}" alt="Historical Stock Plot">
+        </div>
+        <a href="/logout" class="btn btn-purple logout-link">Logout</a>
+    </div>
+</body>
+</html>

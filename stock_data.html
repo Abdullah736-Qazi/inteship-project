@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data and Prediction</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #663399, #c06699, #99c066);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: #f8f9fa;
+            margin: 20px;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11);
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #5f249f; /* Light purple text */
+        }
+
+        .evaluation-results {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .prediction-plot {
+            display: block;
+            margin: 0 auto;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            background-color: #f8f9fa; /* Light gray background */
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11);
+            max-width: 100%;
+        }
+
+        .action-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .action-links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px; /* Add padding for better button appearance */
+            text-align: center;
+            color: #ffffff; /* White text color */
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .action-links a.btn-purple {
+            background-color: #5f249f; /* Light purple color */
+        }
+
+        .action-links a.btn-purple:hover {
+            background-color: #7a36b6; /* Slightly darker purple on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Data and Prediction</h1>
+        <h2>Evaluation Results:</h2>
+        <div class="evaluation-results">
+            {% if evaluation_results %}
+            <button class="btn btn-purple" onclick="showMSE()">View MSE Result</button>
+            <p class="lead" id="mse-result" style="display: none;">Mean Squared Error (MSE): {{ evaluation_results.mse }}</p>
+            <button class="btn btn-purple" onclick="showRMSE()">View RMSE Result</button>
+            <p class="lead" id="rmse-result" style="display: none;">Root Mean Squared Error (RMSE): {{ evaluation_results.rmse }}</p>
+            <button class="btn btn-purple" onclick="showMAE()">View MAE Result</button>
+            <p class="lead" id="mae-result" style="display: none;">Mean Absolute Error (MAE): {{ evaluation_results.mae }}</p>
+            <button class="btn btn-purple" onclick="showDecision()">View Decision Result</button>
+            <p class="lead" id="decision-result" style="display: none;">Decision: {{ evaluation_results['decision'] }}</p>
+            {% endif %}
+
+            {% if comparison_data is not none %}
+            <div class="table-responsive">
+                <h2 class="mt-4">Comparison Data</h2>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Actual Value</th>
+                            <th>Predicted Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, row in comparison_data.iterrows() %}
+                        <tr>
+                            <td>{{ row['Date'] }}</td>
+                            <td>{{ row['Actual Value'] }}</td>
+                            <td>{{ row['Predicted Value'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+
+            <h2>Actual vs. Predicted Closing Prices</h2>
+            <div class="prediction-plot">
+                <img src="{{ plot_url }}" alt="Actual vs. Predicted Closing Prices" class="img-fluid">
+            </div>
+
+            <div class="action-links">
+                <a href="/stock_plot" class="btn btn-purple">View Historical Stock Plot</a>
+                <a href="/logout" class="btn btn-purple">Logout</a>
+            </div>
+
+            <script>
+                function showMSE() {
+                    toggleVisibility('mse-result');
+                }
+
+                function showRMSE() {
+                    toggleVisibility('rmse-result');
+                }
+
+                function showMAE() {
+                    toggleVisibility('mae-result');
+                }
+                function showDecision() {
+                    
+                   toggleVisibility('decision-result');
+                }
+
+        function toggleVisibility(elementId) {
+            const element = document.getElementById(elementId);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

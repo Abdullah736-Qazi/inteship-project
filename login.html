@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #663399, #c06699, #99c066);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #baa3bf; /* Light purple border */
+            border-radius: 5px;
+            background-color: #f1f1f1; /* Ash gray background */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #a81cd3; /* White text */
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #000; /* Black text */
+        }
+
+        .form-control {
+            border: 1px solid #baa3bf; /* Light purple border */
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #926aa6; /* Light purple button */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background-color: #71538c; /* Darker purple on hover */
+        }
+
+        .error-msg {
+            color: rgba(251, 253, 252, 0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Admin Login</h1>
+        <div class="login-form">
+            <form method="post">
+                <div class="form-group">
+                    <label for="name" class="form-label">Admin:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="stockCompany" class="form-label">Select a company:</label>
+                    <select class="form-control" id="stockCompany" name="stockCompany">
+                        <option value="AAPL">Apple Inc.</option>
+                        <option value="GOOGL">Alphabet Inc. (Google)</option>
+                        <option value="MSFT">Microsoft Corporation</option>
+                        <option value="AMZN">Amazon.com Inc.</option> 
+                        <option value="FB">Facebook Inc.</option> 
+                        <option value="TSLA">Tesla Inc.</option> 
+                    </select>
+                </div>
+                <input type="submit" value="Login" class="submit-btn">
+            </form>
+
+            {% if error %}
+            <p class="error-msg">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('stockCompany').addEventListener('change', function () {
+            const selected_Company = this.value;
+            document.getElementById('stockCompanyInput').value = selected_Company;
+        });
+    </script>
+</body>
+</html>
